@@ -1,1 +1,258 @@
+#Q1:  Type Casting & Numeric Operations
 
+
+try:
+    num1 = input("Integer: ")
+    num2 = input("Decimal: ")
+    integer_value = int(num1)
+    float_value = float(num2)
+    print("Integer Value :", integer_value)
+    print("Integer Type  :", type(integer_value).__name__)
+    print("Float Value   :", float_value)
+    print("Float Type    :", type(float_value).__name__)
+    print("Rounded Value :", round(float_value))
+
+    if integer_value < 0 or float_value == 0:
+        print("Division and exponent operations require valid values.")
+    else:
+        divisor = int(float_value)
+
+        if divisor != 0:
+            print(f"{integer_value} / {divisor} = {integer_value / divisor:.4f}")
+            print(f"{integer_value} // {divisor} = {integer_value // divisor}")
+            print(f"{integer_value} % {divisor} = {integer_value % divisor}")
+
+        print(f"{integer_value} ** 2 = {integer_value ** 2}")
+        print("String Value :", str(integer_value))
+
+except ValueError:
+
+
+
+#Q2:Caesar Cipher
+
+message = input("Message: ")
+shift = int(input("Shift: "))
+
+def caesar(text, shift):
+    result = ""
+
+    for char in text:
+        if 'A' <= char <= 'Z':
+            result += chr((ord(char) - ord('A') + shift) % 26 + ord('A'))
+        elif 'a' <= char <= 'z':
+            result += chr((ord(char) - ord('a') + shift) % 26 + ord('a'))
+        else:
+            result += char
+
+    return result
+
+encrypted = caesar(message, shift)
+decrypted = caesar(encrypted, -shift)
+
+print("Encrypted:", encrypted)
+print("Decrypted:", decrypted)
+
+    print("Invalid input! Enter valid numeric values.")
+
+#Q3:Number Analyzer
+
+
+start = int(input("Start: "))
+end = int(input("End: "))
+
+print(f"{'Number':<8}{'Prime':<8}{'Perfect':<10}"
+      f"{'Armstrong':<12}{'Palindrome':<13}"
+      f"{'Digit Sum':<12}{'Digits':<9}{'Binary'}")
+
+for n in range(start, end + 1):
+    digits = str(abs(n))
+    digit_sum = sum(int(d) for d in digits)
+    digit_count = len(digits)
+    prime = n > 1
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            prime = False
+            break
+    perfect_sum = sum(i for i in range(1, n) if n > 0 and n % i == 0)
+    perfect = n > 1 and perfect_sum == n
+    armstrong_sum = sum(int(d) ** digit_count for d in digits)
+    armstrong = n >= 0 and armstrong_sum == n
+    palindrome = n >= 0 and digits == digits[::-1]
+    binary = bin(n)[2:] if n >= 0 else "-" + bin(abs(n))[2:]
+    print(f"{n:<8}{'Yes' if prime else 'No':<8}"
+          f"{'Yes' if perfect else 'No':<10}"
+          f"{'Yes' if armstrong else 'No':<12}"
+          f"{'Yes' if palindrome else 'No':<13}"
+          f"{digit_sum:<12}{digit_count:<9}{binary}")
+
+
+
+#q4: Number System Converter + GCD/LCM
+n1 = int(input("Number 1: "))
+n2 = int(input("Number 2: "))
+def convert(number, base):
+    digits = "0123456789ABCDEF"
+    if number == 0:
+        return "0"
+    result = ""
+    while number > 0:
+        remainder = number % base
+        result = digits[remainder] + result
+        number //= base
+    return result
+print("Binary      :", convert(n1, 2))
+print("Octal       :", convert(n1, 8))
+print("Hexadecimal :", convert(n1, 16))
+
+
+#Q5:Two-Divisor FizzBuzz
+
+n = int(input("N: "))
+d1 = int(input("Divisor 1: "))
+word1 = input("Word 1: ")
+d2 = int(input("Divisor 2: "))
+word2 = input("Word 2: ")
+if d1 == 0 or d2 == 0:
+    print("Divisors must not be zero.")
+else:
+    for i in range(1, n + 1):
+        if i % d1 == 0 and i % d2 == 0:
+            print(word1 + word2)
+        elif i % d1 == 0:
+            print(word1)
+        elif i % d2 == 0:
+            print(word2)
+        else:
+            print(i)
+
+
+
+#Q6: Student Mark Conversion & Result Analyzer
+students = int(input("Students: "))
+results = []
+for _ in range(students):
+    name = input("Student name: ")
+    marks_input = input(f"{name} marks: ").split()
+    try:
+        marks = [float(m) for m in marks_input]
+        if not marks or any(m < 0 or m > 100 for m in marks):
+            print(name, ": Invalid marks")
+            continue
+        total = sum(marks)
+        average = total / len(marks)
+        if average >= 90:
+            grade = "A+"
+        elif average >= 80:
+            grade = "A"
+        elif average >= 70:
+            grade = "B"
+        elif average >= 60:
+            grade = "C"
+        elif average >= 50:
+            grade = "D"
+        else:
+            grade = "F"
+        results.append((name, total, average, grade))
+    except ValueError:
+        print(name, ": Invalid marks")
+print(f"{'Student':<12}{'Total':<10}{'Average':<12}{'Grade'}")
+for name, total, average, grade in results:
+    print(f"{name:<12}{total:<10.0f}{average:<12.2f}{grade}")
+a, b = n1, n2
+while b != 0:
+    a, b = b, a % b
+gcd = a
+lcm = (n1 * n2) // gcd if gcd != 0 else 0
+print("GCD         :", gcd)
+print("LCM         :", lcm)
+
+
+#Q7: Digital Payment Transaction Analyzer
+n = int(input("Transactions: "))
+transactions = []
+rejected = 0
+for _ in range(n):
+    amount = input()
+    try:
+        value = float(amount)
+        if value < 0:
+            rejected += 1
+        else:
+            transactions.append(value)
+    except ValueError:
+        rejected += 1
+successful = len(transactions)
+total = sum(transactions)
+print("Successful Transactions :", successful)
+print(f"Total Amount            : ₹{total:.2f}")
+if successful > 0:
+    print(f"Highest Transaction     : ₹{max(transactions):.2f}")
+    print(f"Lowest Transaction      : ₹{min(transactions):.2f}")
+    print(f"Average Transaction     : ₹{total / successful:.2f}")
+else:
+    print("Highest Transaction     : N/A")
+    print("Lowest Transaction      : N/A")
+    print("Average Transaction     : N/A")
+print("Rejected Transactions   :", rejected)
+
+
+#Q8 — String to Integer (atoi)
+
+def myAtoi(s):
+    i = 0
+    n = len(s)
+    while i < n and s[i].isspace():
+        i += 1
+    sign = 1
+    if i < n and s[i] in '+-':
+        if s[i] == '-':
+            sign = -1
+        i += 1
+    result = 0
+    while i < n and s[i].isdigit() and s[i].isascii():
+        result = result * 10 + int(s[i])
+        i += 1
+    result *= sign
+    result = max(-2**31, min(result, 2**31 - 1))
+    return result
+s = input("Enter string: ")
+print(myAtoi(s))
+
+
+#Q9:Add Binary
+def addBinary(a, b):
+    i = len(a) - 1
+    j = len(b) - 1
+    carry = 0
+    result = ""
+    while i >= 0 or j >= 0 or carry:
+        total = carry
+        if i >= 0:
+            total += int(a[i])
+            i -= 1
+        if j >= 0:
+            total += int(b[j])
+            j -= 1
+        result = str(total % 2) + result
+        carry = total // 2
+    return result
+a = input("a = ")
+b = input("b = ")
+print(addBinary(a, b))
+
+
+#Q10: Happy Number
+def isHappy(n):
+    seen = set()
+    while n != 1 and n not in seen:
+        seen.add(n)
+        total = 0
+        while n > 0:
+            digit = n % 10
+            total += digit * digit
+            n //= 10
+        n = total
+    return n == 1
+n = int(input("Enter a number: "))
+print(isHappy(n))
