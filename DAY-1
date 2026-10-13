@@ -1,0 +1,157 @@
+
+# Q1. Temperature Conversion
+print("\n--- Q1: Temperature Conversion ---")
+celsius = float(input("Enter temperature in Celsius: "))
+fahrenheit = (celsius * 9 / 5) + 32
+kelvin = celsius + 273.15
+print(f"Celsius: {celsius:.2f}°C")
+print(f"Fahrenheit: {fahrenheit:.2f}°F")
+print(f"Kelvin: {kelvin:.2f}K")
+
+print("\nConversion Table")
+print(f"{'Celsius':>10} {'Fahrenheit':>12} {'Kelvin':>10}")
+for c in range(-40, 101, 10):
+    print(f"{c:10.2f} {(c * 9 / 5 + 32):12.2f} {(c + 273.15):10.2f}")
+
+
+# Q2. Three-Number Analyzer
+print("\n--- Q2: Three-Number Analyzer ---")
+a = float(input("Enter first number: "))
+b = float(input("Enter second number: "))
+c = float(input("Enter third number: "))
+print("Largest:", max(a, b, c))
+print("Smallest:", min(a, b, c))
+print(f"Average: {(a + b + c) / 3:.2f}")
+
+n = int(input("Enter a number for classification: "))
+if n == 0:
+    print("Classification: Zero and Even")
+else:
+    sign = "Positive" if n > 0 else "Negative"
+    parity = "Even" if n % 2 == 0 else "Odd"
+    print(f"Classification: {sign} and {parity}")
+
+
+# Q3. Leap Year and Grade Calculator
+print("\n--- Q3: Leap Year and Grade ---")
+year = int(input("Enter year: "))
+marks = float(input("Enter marks: "))
+if year % 400 == 0 or (year % 4 == 0 and year % 100 != 0):
+    print(f"{year} is a Leap Year")
+else:
+    print(f"{year} is not a Leap Year")
+
+if not 0 <= marks <= 100:
+    print("Invalid marks. Enter a value between 0 and 100.")
+elif marks >= 90:
+    print("Grade: A+")
+elif marks >= 80:
+    print("Grade: A")
+elif marks >= 70:
+    print("Grade: B")
+elif marks >= 60:
+    print("Grade: C")
+elif marks >= 50:
+    print("Grade: D")
+else:
+    print("Grade: F")
+
+
+# Q4. Bill Calculator
+print("\n--- Q4: Bill Calculator ---")
+prices = []
+while True:
+    value = input("Enter item price or 'done': ")
+    if value.lower() == "done":
+        break
+    try:
+        price = float(value)
+        if price < 0:
+            print("Price cannot be negative.")
+            continue
+        prices.append(price)
+    except ValueError:
+        print("Enter a valid price.")
+
+print("\n---------- RECEIPT ----------")
+print(f"{'Item':<12}{'Price':>10}")
+for i, price in enumerate(prices, start=1):
+    print(f"{'Item ' + str(i):<12}{price:>10.2f}")
+
+subtotal = sum(prices)
+discount = subtotal * 0.10 if subtotal >= 500 else 0
+tax = (subtotal - discount) * 0.05
+print("-----------------------------")
+print(f"{'Subtotal':<18}{subtotal:>10.2f}")
+print(f"{'Discount':<18}{discount:>10.2f}")
+print(f"{'Tax':<18}{tax:>10.2f}")
+print(f"{'Final Amount':<18}{subtotal - discount + tax:>10.2f}")
+
+
+# Q5. Swap Without Temporary Variable
+print("\n--- Q5: Swap Numbers ---")
+a = int(input("Enter a: "))
+b = int(input("Enter b: "))
+print(f"Before Swap: a={a}, b={b}")
+a, b = b, a
+print(f"After Swap: a={a}, b={b}")
+
+
+# Q6. Simple Interest Report
+print("\n--- Q6: Simple Interest ---")
+principal = float(input("Enter principal: "))
+rate = float(input("Enter rate: "))
+time = float(input("Enter time in years: "))
+if principal < 0 or time < 0:
+    print("Principal and time must be non-negative.")
+else:
+    interest = principal * rate * time / 100
+    print(f"Principal       : {principal:.2f}")
+    print(f"Rate            : {rate:.2f}%")
+    print(f"Time            : {time:.2f} years")
+    print(f"Simple Interest : {interest:.2f}")
+    print(f"Total Amount    : {principal + interest:.2f}")
+
+
+# Q7. Type Inspector
+print("\n--- Q7: Type Inspector ---")
+value = input("Enter a value: ")
+print("Original value type:", type(value).__name__)
+try:
+    number = int(value)
+    print("Integer value:", number)
+    print("Integer type:", type(number).__name__)
+except ValueError:
+    print("Invalid integer conversion")
+try:
+    number = float(value)
+    print("Float value:", number)
+    print("Float type:", type(number).__name__)
+except ValueError:
+    print("Invalid float conversion")
+
+
+# Q8. Fix Input Types
+print("\n--- Q8: Numerical Sum ---")
+a = float(input("Enter first value: "))
+b = float(input("Enter second value: "))
+print(f"Sum: {a + b:.2f}")
+
+
+# Q9. Multiple Assignment Analyzer
+print("\n--- Q9: Data Types ---")
+a, b, c, d, e = 10, 3.14, "Python", True, None
+for value in (a, b, c, d, e):
+    print("Value:", value)
+    print("Type:", type(value).__name__)
+
+
+# Q10. Expression Evaluator
+print("\n--- Q10: Expression Evaluator ---")
+a = 19
+b = 4
+print("a / b =", a / b)
+print("a // b =", a // b)
+print("a % b =", a % b)
+print("a ** b =", a ** b)
+print("Negative floor division:", -19 // 4)
